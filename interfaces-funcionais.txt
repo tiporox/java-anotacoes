@@ -1,0 +1,98 @@
+java.util.function
+
+
+Interface Predicate<T>
+
+O que é:
+	Interface utilizada para realizar testes de comparação
+	
+Parametros:
+	Parametro T generico, que e o tipo do valor a ser recebido
+	
+Retorno:
+	boolean - deve voltar o resultado da comparação
+	
+Ex:
+
+	Predicate<Pessoa> ehMaiorDe18 = (p) -> p.getIdade() >= 18;			
+	Predicate<Pessoa> ehHomem = (p) -> p.getSexo().equals(Sexo.MASCULINO);
+	Predicate<Pessoa> ehMulher = (p) -> p.getSexo().equals(Sexo.FEMININO); 
+	
+	Pessoa walquiria = new Pessoa("Walquiria", 23, Sexo.FEMININO);
+	
+	ehMaiorDe18.and(ehHomem).or(ehMulher).negate().test(walquiria);
+	
+	//  !((p.getIdade() >= 18 && p.getSexo().equals(Sexo.MASCULINO)) || p.getSexo().equals(Sexo.FEMININO))
+	
+	ehMaiorDe18.and(ehHomem.or(ehMulher)).test(walquiria))
+	
+	//(p.getIdade() >= 18 && (p.getSexo().equals(Sexo.MASCULINO) || p.getSexo().equals(Sexo.FEMININO)))
+	
+	
+	
+default Predicate<T> and​(Predicate<? super T> other) - Returns a composed predicate that represents a short-circuiting logical AND of this predicate and another.
+static <T> Predicate<T>	isEqual​(Object targetRef) - Returns a predicate that tests if two arguments are equal according to Objects.equals(Object, Object).
+default Predicate<T> negate() - Returns a predicate that represents the logical negation of this predicate.
+static <T> Predicate<T>	not​(Predicate<? super T> target) - Returns a predicate that is the negation of the supplied predicate.
+default Predicate<T> or​(Predicate<? super T> other)	- Returns a composed predicate that represents a short-circuiting logical OR of this predicate and another.
+boolean	test​(T t) - Evaluates this predicate on the given argument.	
+	
+----------------------------------
+
+Interface Consumer<T>
+
+O que é:
+	Intereface utilizado para executar um codigo recebendo um parametro sem necessidade de retornar valor
+
+Parametros:
+	Parametro T generico, que e o tipo do valor a ser recebido
+
+Retorno:
+	void - sem retorno
+	
+Ex:	
+	Pessoa jose = new Pessoa("Jose", 28, Sexo.MASCULINO);
+	Pessoa walquiria = new Pessoa("Walquiria", 23, Sexo.FEMININO);
+
+	List<Pessoa> lista = List.of(jose, walquiria);
+
+	Consumer<Pessoa> consumer = System.out::println;
+
+	lista.forEach(consumer);
+	
+	
+void accept​(T t) - Performs this operation on the given argument.
+default Consumer<T>	andThen​(Consumer<? super T> after) - Returns a composed Consumer that performs, in sequence, this operation followed by the after operation.	
+
+
+----------------------------------
+	
+Interface Supplier<T>
+
+O que é:
+	Intereface utilizado para rotornar um valor
+
+Parametros:
+	não tem
+
+Retorno:
+	T generico, que e o tipo do valor a ser retornado
+	
+Ex:	
+	Supplier<Integer> getRandomNumber = () -> new Random().nextInt(10);
+	
+	System.out.println(getRandomNumber.get());
+	System.out.println(getRandomNumber.get());
+	System.out.println(getRandomNumber.get());
+			
+	
+/* saida
+2
+9
+2
+*/
+		
+T get() - Gets a result.
+
+----------------------------------
+		

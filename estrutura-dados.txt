@@ -1,0 +1,125 @@
+ArrayList 
+
+O que é:
+	É uma lista redimencionavel, que deve ser usada quando é desejado uma lista de valores
+	cujo o maior uso é para buscar valores.
+
+Vantagens:
+	- array redimencionavel
+	- maior velocidade ao buscar elementos
+
+Desvantagens:
+	- pode ser lento para adicionar um elemento em qualquer extremidade
+		
+----------------------------------
+
+LinkedList
+
+O que é:
+	É uma lista redimencionavel, que deve ser usada quando é desejado uma lista de valores
+	cujo o maior uso é para adicionar e remover valores.
+
+Vantagens:
+	- array redimencionavel
+	- maior velocidade ao adicionar ou remover elementos	
+	
+Desvantagens:	
+	- menor performance ao pegar um elemento especifico
+		
+----------------------------------
+
+HashMap
+
+O que é:
+	É um container de chave e valor, onde cada chave deve ser unica. 
+
+Vantagens:
+	- Trabalha com chave e valor.
+	- Deleção e inserção de valores possuiem um desempenho constante.
+
+Desvantagens:
+	- Ele utiliza mais memoria, pois cada valor possui uma chave.
+	- Não ordenado.
+		
+----------------------------------
+
+TreeMap
+
+O que é:
+	É um container de chave e valor ordenado pela ordem natural de sua chave ou pelo comparador passado no construtor, 
+	onde cada chave deve ser unica.
+
+Vantagens:
+	- Trabalha com chave e valor.
+	- Maior eficiencia de armazenamento em memoria em relação ao hashmap
+	- ordenação pela chave
+
+Desvantagens:
+	- Deleção e inserção de valores possuiem um desempenho menor.
+		
+----------------------------------
+
+HashSet
+
+O que é:
+	É uma lista de valores unicos, essa classe oferece desempenho constante em operações basicas como
+	(add, remove, contains, and size).
+
+Vantagens:
+	- Valores unicos.
+	- desempenho constante em operações basicas (add, remove, contains, and size).
+	- Pode conter valores nulos
+
+Desvantagens:
+	- Não ordenado.		
+		
+		
+----------------------------------
+
+TreeSet
+
+O que é:
+	É uma lista de valores unicos ordenados pela ordem natural ou pelo comparador passado no construtor.
+
+Vantagens:
+	- Valores unicos.
+	- Valores ordenados.
+
+Desvantagens:
+	- Não pode conter valores nulos.	
+	- Menor desempenhos nas operações do que o HashSet.
+	
+----------------------------------
+
+ArrayDeque
+
+O que é:
+	É uma lista redimencionavel, quer trabalha com o conceito de fila.
+
+Vantagens:
+	- lista redimencionavel
+	- trabalha com o conceito de fila	
+	
+Desvantagens:	
+	
+				
+----------------------------------
+
+Collections 
+
+O que é:
+	É uma classe utilitaria que prove varios metodos para trabalhar com containers de dados.
+	Consistem exclusivamentod e metodos estaticos. Alguns metodosnão são aplicaveis a todos
+	os tipos de collections. Por exemplo sort() em um HashSet, pois o container não suporta operações
+	de ordenação.
+
+Ex:
+	Collections.sort - ordena pela ordem natural
+	Collections.reverse - ordena pela ordem inversa da ordem natural
+	Collections.swap - troca elementos de uma posição especifica
+	Collections.replaceAll - usado para trocar todas ocorrências de um valor especifico de uma lista com outra.
+	Collections.shuffle - embaralha a lista de elementos
+	Collections.max - pega o maior valor da lista
+	Collections.min - pega o menor valor da lista
+
+

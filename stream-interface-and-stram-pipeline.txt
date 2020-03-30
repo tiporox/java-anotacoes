@@ -1,0 +1,37 @@
+
+
+- Stream Interface: representa uma sequencia de elementos que podem ser agregados
+
+- Stream Interface pode ser criaddo por um metodo statico em Stream, ou de um metodo de Stream invocado 
+de uma fonte de dados.
+
+- A fonte de dados de uma Stream não pode ser modificado enquanto a stream esta sendo processada.
+
+- Operações de uma Stream são divididas em operações intermediárias e finais, e combinados em uma esteira.
+
+- Uma esteria de Stream inclui uma fonte, zero ou mais operações intermediárias, e uma unica operação final.
+
+- Operações intermediárias retornam uma nova stream; estas operações são todas lazy e só são disparadas quando
+uma operação final e iniciada.
+
+- Uma operação pode atravesar a stream para produzir um resultado ou uma modificação; após a operação final ser
+realizada, a esteira da stream é considerada consumida.
+
+
+----------------------------------------------------
+Exemplos:
+
+Collection<Integer> colletion = Arrays.asList(1,2,3,4,5);//lista imutavel
+		
+Stream<Integer> stream = colletion.stream();
+
+Stream<Integer> stream2 = Stream.of(1,2,3,4,5);
+
+stream.filter(i -> i <= 2).forEach(System.out::println);
+
+System.out.println("\n-------------------------\n");
+
+stream2.filter(i -> i > 2).forEach(System.out::println);
+
+
+----------------------

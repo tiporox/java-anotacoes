@@ -36,6 +36,53 @@ default Predicate<T> negate() - Returns a predicate that represents the logical 
 static <T> Predicate<T>	not​(Predicate<? super T> target) - Returns a predicate that is the negation of the supplied predicate.
 default Predicate<T> or​(Predicate<? super T> other)	- Returns a composed predicate that represents a short-circuiting logical OR of this predicate and another.
 boolean	test​(T t) - Evaluates this predicate on the given argument.	
+
+----------------------------------
+	
+Interface Function<T,​R>
+
+O que é:
+	Intereface utilizado para rotornar um valor
+
+Parametros:
+	não tem
+
+Retorno:
+	T generico, que e o tipo do valor a ser retornado
+	
+Ex:	
+	Pessoa jose = new Pessoa("Jose", 28, Sexo.MASCULINO);
+	Pessoa walquiria = new Pessoa("Walquiria", 23, Sexo.FEMININO);
+	
+	List<Pessoa> lista = List.of(jose, walquiria);
+
+	Function<List<Pessoa>, Integer> fn = (l) -> {
+		System.out.println("apply");
+		return l.size();
+	};
+	
+	fn.compose((List<Pessoa> l) -> {
+		System.out.println("compose");
+		return l;
+	})
+	.andThen((l) -> {
+		System.out.println("andThen");
+		return l;
+	})
+	.apply(lista);
+	
+/* saida
+compose
+apply
+andThen
+*/
+	
+	
+default <V> Function<T,​V> andThen​(Function<? super R,​? extends V> after) - Returns a composed function that first applies this function to its input, and then applies the after function to the result.
+R apply​(T t) - Applies this function to the given argument.
+default <V> Function<V,​R> compose​(Function<? super V,​? extends T> before) - Returns a composed function that first applies the before function to its input, and then applies this function to the result.
+static <T> Function<T,​T> identity() - Returns a function that always returns its input argument.
+
 	
 ----------------------------------
 

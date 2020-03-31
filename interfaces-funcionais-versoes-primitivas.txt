@@ -1,0 +1,142 @@
+
+
+- Interfaces de funções genericas só podem operar em um tipo de referencia; quando usam essa interface
+generica com tipos primitivos os valores são auto empacotados e desempacotados,e causam sobrecarga em ambos 
+no tempo de compilação e execução.
+
+- O pacote java.util.function  prove especializações de interfaces de funções de tipos primitivos; essas
+especializações suportam os tipos primitivos int, long, double e boolean.
+
+- Uma primitiva interface funcional tem um nome similar para cada tipo generico, exceto para o prefixo
+identificando o tipo primitivo suportado.
+
+
+Predicate primitivos:
+
+-IntPredicate
+-LongPredicate
+-DoublePredicate
+
+.test(int value) : boolean
+.test(long value) : boolean
+.test(double value) : boolean
+
+.or(IntPredicate predicate) : boolean
+.and(IntPredicate predicate) : boolean
+.negate(IntPredicate predicate) : boolean
+
+.or(LongPredicate predicate) : boolean
+.and(LongPredicate predicate) : boolean
+.negate(LongPredicate predicate) : boolean
+
+.or(DoublePredicate predicate) : boolean
+.and(DoublePredicate predicate) : boolean
+.negate(DoublePredicate predicate) : boolean
+
+Consumer<T> primitivos:
+
+-IntConsumer
+-LongConsumer
+-DoubleConsumer
+
+.accept(int value) : void
+.accept(long value) : void
+.accept(double value) : void
+
+Function<T, R> primitivos:
+
+-IntFunction - aceita um int e retorna R
+-LongFunction - aceita um long e retorna R
+-DoubleFunction - aceita um double e retorna R
+
+.apply(int value) : R
+.apply(long value) : R
+.apply(double value) : R
+
+-------
+
+-ToIntFunction - aceita um T e retorna um int
+-ToLongFunction - aceita um T e retorna um long 
+-ToDoubleFunction - aceita um T e retorna um double
+
+.applyAsInt(int value) : R
+.applyAsLong(long value) : R
+.applyAsDouble(double value) : R
+
+-------
+
+-DoubleToIntFunction - aceita um double e retorna um int
+-LongToIntFunction - aceita um double e retorna um int
+
+-IntToDoubleFunction - aceita um double e retorna um double
+-LongToDoubleFunction - aceita um double e retorna um double
+
+-DoubleToIntFunction - aceita um double e retorna um long
+-IntToIntFunction - aceita um double e retorna um long
+
+.applyAsInt(int value) : int
+.applyAsLong(long value) : long
+.applyAsDouble(double value) : double
+
+
+-------
+
+Supplier<R> primitivos:
+
+IntSupplier - retorna um int
+DoubleSupplier - retorna um double
+LongSupplier - retorna um long
+BooleanSupplier - retorna um boolean
+
+.getAsInt() - retorna um int
+.getAsDouble() - retorna um double
+.getAsLong() - retorna um long
+.getAsBoolean() - retorna um boolean
+
+----------------------------------------------------
+Exemplos:
+
+//implementação evita o autoboxing e uso de memoria desnecessário 
+		
+	IntStream stream2 = IntStream.of(1,2,3,4,5, 6);
+
+	IntPredicate ehMaiorQue2 = i -> {
+		System.out.println("filter 1: " + i);
+		return i > 2;
+	};
+	
+	IntPredicate ehPar = i -> {
+		System.out.println("filter 2: " + i);
+		return i % 2 == 0;
+	};
+	
+	IntConsumer print = (i) -> System.out.println("forEach: " + i);
+	
+	DoubleFunction<IntConsumer> fn = (value) -> {
+		System.out.println(value);
+		return print;
+	};
+	
+	
+	ToIntFunction<String> fnToInt = (i) -> {
+		return 1;
+	};
+	
+	fnToInt.applyAsInt("teste");
+	
+	IntToDoubleFunction fnIntToToDouble = (intValue) -> {
+		return 2.0;
+	};
+	
+	fnIntToToDouble.applyAsDouble(1);
+	
+	BooleanSupplier fnBoolean = () ->  true;
+	
+	fnBoolean.getAsBoolean();
+		
+	stream2
+		.filter(ehMaiorQue2)
+		.filter(ehPar)
+		.forEach(fn.apply(20.5));
+
+----------------------

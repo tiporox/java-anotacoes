@@ -1,0 +1,310 @@
+
+--------------------------
+Runnable
+	- Interface funcional destinada para ser implementada por classes que as instancias desejem ser eexecutadas em outra thread.
+	- Não retorna e nem aceita valores.
+
+Exemplo:
+
+Runnable task1 = () -> System.out.println("Worker 1");
+
+--------------------------
+	
+Callable
+	- Interface funcional destinada para ser implementada por classes que as instancias desejem ser eexecutadas em outra thread.
+	- retorna um tipo especificado e nem aceita valores.
+
+Exemplo:
+
+Callable<Integer> task1 = () -> 1;
+
+--------------------------
+
+ExecutorService
+	- Interface que representa objetos que executam subimissões de tarefas Runnable e Callable, provendo um jeito de deesacoplar a 
+	submissao da tarefa da execução da tarefa.
+	
+
+Principais Metodos:
+	
+
+executor.invokeAll(Collection<? extends Callable>) - Execução das tarefas sequencialmente.
+executor.invokeAny(Collection<? extends Callable>) - 
+
+executor.shutdown() - 	
+executor.shutdownNow() - 
+
+executor.submit(Callable<T>) : Future<T>  - 
+executor.submit(Runnable) : Future<?> - 
+executor.submit(Runnable, T) : Future<T> - 
+
+--------------------------
+
+Executors 
+	- Factory que prove jeitos de criar uma implementação de ExecutorService
+
+Ex:
+
+Executors.newSingleThreadExecutor() - prove uma implementação de uma unica thread para executar as tarefas	
+Executors.newFixedThreadPool(2) - 
+
+
+------------------------------------------
+
+Principais problemas de threads
+
+Deadlock
+	- Descreve uma situação onde duas ou mais threads são bloqueadas para sempre 
+	- Deadlock pode acontecer quando multiplas threads tentam conseguir o memo lock ao mesmo tempo mas em ordens diferentes.
+
+Ex:
+	threads completamente bloqueadas
+
+-------------------
+
+Starvation
+	-  Descreve a situação onde alguma thread está impossibilitada de ganhar acesso em um recurso compartilhado 
+	enquanto ele esta ocupado por outras threads.
+	- Starvation acontece quando uma thread ganha acesso exclusivo a um recurso por um longo periodo de tempo,
+	deixando outras threads sem chance para continuar, ou quando uma thread continua falhando ao adquirir acesso ao lock concorrendo com outras thread.
+	
+Ex:
+	Um thread gananciosa aloca um recurso só para ela por um longo periodo de tempo, fazendo com que outras threads acabem falhando ao requisitar o recurso.
+
+-------------------
+	
+Livelock
+	- Descreve a situação onde mltiplas threads estão ocupadas respondendo para ações de outras threads, estas threads continuam executando declarações 
+	particulares, resultando em ser um programa impossibilitado de fazer progresso.
+
+Ex:
+	Threads continuam rodando mas nenhum progresso e feito,
+	
+
+-------------------
+
+Race Condition
+	- São situações onde varias threads acessam e modificam o mesmo recurso ao mesmo tempo, resultando em saidas imprevisiveis.
+
+Ex:
+	Varias threads acessando e modificando o valor de um atributo que não seja thread safe, causando valores imprevisiveis.
+	- Pondendo pegar um valor ao mesmo tempo ou em sequencias diferentes
+
+------------------------------------------
+Intrisic Lock ou monitors
+	- São entidades associadas a objetos
+	- Todo objeto tem exatamente um intrisic lock, forçando acesso exclusivo para o código associado com este objeto e 
+	estabalecendo relacionamentos anteriores com a subsequente aquisição do mesmo lock
+	- Trabalha em conjunto com synchronized keyword, no qual pode ser usada em metodos ou blocos de códigos
+
+Metodos Sincronizados
+	- São metodos declarados com a palavra chave synchronized
+	- Quando uma thread invoca um metodo sincronizado, ela adquire o intrinsic lock no metodo do objeto e libera quando o metodo é finalizado  
+
+Blocos Sincronizados
+	- A palavra chave synchronized também pode ser declarada em blocos de códigos
+	- O objeto que prove o intrinsic lock precisa ser especificado im um bloco sincronizado
+
+
+-------------------
+Pacote
+java.util.concurrent.atomic
+
+	- Pacote que contem classes que suportam locks livres e operações seguras a threads 
+	- Você pode criar instancias de classes atomicas usando construtores sem argumentos ou construtores com um tipo sw parâmetro apropriado.
+
+
+AtomicBoolean
+
+get() - Recupera o valor incluido na instância
+compareAndSet(Boolean p1, Boolean p2) - atuliza o valor da instancia com o p2 caso o valor atual seja o valor do p1
+getAndSet(Boolean p1) - retorna o valor atual e depois atualiza o valor da instancia.
+
+
+
+AtomicInteger
+
+get() - Recupera o valor incluido na instância
+compareAndSet(Integer p1, Integer p2) - atuliza o valor da instancia com o p2 caso o valor atual seja o valor do p1
+getAndSet(Integer p1) - retorna o valor atual e depois atualiza o valor da instancia.
+addAndGet(Integer p1) - 
+addGetAndAdd(Integer p1) - 
+incrementAndGet() - 
+getAndIncrement() - 
+decrementAndGet() - 
+getAndDecrement() - 
+getAndUpdate(UnaryOperator<T> p1) - 
+accumulateAndGet(V x, BinaryOperator<V> accumulatorFunction) - 
+getAndUpdate(UnaryOperator<V>) - 
+updateAndGet(UnaryOperator<V>) - 
+
+
+AtomicLong
+
+get() - Recupera o valor incluido na instância
+compareAndSet(Long p1, Long p2) - atuliza o valor da instancia com o p2 caso o valor atual seja o valor do p1
+getAndSet(Long p1) - retorna o valor atual e depois atualiza o valor da instancia.
+addAndGet(Long p1) - 
+addGetAndAdd(Long p1) - 
+incrementAndGet() - 
+getAndIncrement() - 
+decrementAndGet() - 
+getAndDecrement() - 
+getAndUpdate(UnaryOperator<T> p1) - 
+accumulateAndGet(V x, BinaryOperator<V> accumulatorFunction) - 
+getAndUpdate(UnaryOperator<V>) - 
+updateAndGet(UnaryOperator<V>) - 
+
+
+AtomicReference<T>
+
+get() - Recupera o valor incluido na instância
+compareAndSet(V p1, V p2) - atuliza o valor da instancia com o p2 caso o valor atual seja o valor do p1
+getAndSet(V p1) - retorna o valor atual e depois atualiza o valor da instancia.
+getAndUpdate(UnaryOperator<T> p1) - 
+accumulateAndGet(V x, BinaryOperator<V> accumulatorFunction) - 
+getAndUpdate(UnaryOperator<V>) - 
+updateAndGet(UnaryOperator<V>) - 
+
+
+------------------------------------------
+
+CyclicBarrier
+	- é um sincronizador de classes, que permite um conjunto de threads aguardar até que outras threads tenham alcançado o ponto da barreira
+	- ele pode ser criado passando uma tarefa runnable que é executada uma vez por ponto de barreira, após todas threads chegarem e antes delas serem liberadas
+
+
+await() - Espera até que todas as threads tenham invocado o await nesta barreira.
+await(long timeout, TimeUnit unit) -  Espera até que todas as threads tenham invocado o await nesta barreira, ou caso o tempo específico seja ultrapassado é lancado uma exceção.
+getNumberWaiting() - Retorna o número atual de threads que estão esperando.
+getParties() - retorna o numero de threads requeridas para passar pela barreira.
+isBroken() - verifica se a barreira esta no estado quebrado/interrompido.
+reset() - Volta a barreira para o estado inicial.
+
+Ex:
+
+CyclicBarrier(5)
+CyclicBarrier(2, () -> System.out.println("Threads released"))
+
+-------------------
+
+CopyOnWriteArrayList
+	- é uma variação de ArayList segura a threads, onde todas as operações de alteração são implementadas fazendo uma copia do array subjacente.
+	- recomendado o uso quando as operaçõe de atualização da lista são bem menores que operações de leitura
+	- Quando uma instância de Interator  é criada para percorrer sobre os elementos da lita, é provido um estado snapshot da lista até o ponto que 
+	o interetor for construido.
+
+Metodos:
+
+addIfAbsent(E e) - adiciona um elemento se ele não já estiver presente na lista.
+addAllAbsent(Collection<? extends E> c) - adiciona os elementos que não já estiverem presente na lista.
+
+
+------------------------------------------
+
+Fork/Join
+	- É um framework destinado projetado para trabalhos que podem ser divididos em pedaços menores recursivamente, 
+	permitindo você tirar vantagens dos multiprocesadores.
+	- O Fork/Join distribui tarefas para as threads em um pool de threads, no qual emprega um algoritimo de "roubo de trabalho" (work-stealing).
+	- O principal componente do fork/join é a classe ForkJoinPool, representando threads pool e executando processos ForkJoinTask.
+
+-------------------
+
+ForkJoinPool
+	- É uma implementação da interface ExecutorService, provendo o ponto de entrada para submissão de tarefas e gerenciamento. 
+	- A diferença entre ForkJoinPool e ExecutorService é o estilo do algoritimo utilizado.
+	- Uma instância de ForkJoinPool pode ser criada usando static factory method ou contrutor,
+		- commonPool(): Retorna uma instância de um pool comum, um padrão de thread pool para uma ForkJoinTask.
+		- ForkJoinPool(): Cria um ForkJoinPool com nivel de paralelismo igual ao número disponível de processadores.
+		- ForkJoinPool(int parallelism):  Cria um ForkJoinPool com um específico nivel de paralelismo.  
+		
+
+Metodos:
+
+<T> T invoke(ForkJoinTask<T> task): Executa uma task dada e retorna o resultado após a conclusão
+
+
+-------------------
+
+ForkJoinTask
+	- É uma classe base abstrata representando tarefas rodando com um ForkJoinPool
+	- Tarefas são normalmente submetidas e recuperadas via os metodos fork e join, ou derivados deles invoke e invokeAll
+		- fork: Executa assincronamente esta tarefa no pool.
+		- join: retorna o resultado da execução quando termina.
+		- invoke: inicia a execução da tarefa, aguarda a execução e retorna o resultado.
+		- invokeAll: inicia a execução de todas as tarefas dadas, e então aguarda a execução delas.
+	- Duas bubclasses de ForkJoinTask, nomeadas RecursiveAction e RecursiveTask, são frequentemente extendidas para indicar uma task.
+		
+		
+RecursiveAction
+	- utilizada para execuções onde não é necessário obter resultado da tarefa
+	- só um metodo abstrato precisa ser implementado por subclasses de RecursiveAction e RecursiveTask, o metodo "compute"
+	- você deve aderir ao seguinte algoritimo dentro do metodo compute para implementar o fork/join framework:
+		
+		if(<o trabalho é pequeno o sufuciente>) {
+			<faça o trabalho diretamente>
+		} else {
+			<quebre o trabalho multiplos pedados invocando eles e aguardando o resultado>
+		}		
+		
+RecursiveTask
+	- Utilizada para execuções que necessitam obter o retorno da tarefa.
+	- só um metodo abstrato precisa ser implementado por subclasses de RecursiveAction e RecursiveTask, o metodo "compute"
+	- você deve aderir ao seguinte algoritimo dentro do metodo compute para implementar o fork/join framework:
+		
+		if(<o trabalho é pequeno o sufuciente>) {
+			<faça o trabalho diretamente>
+		} else {
+			<quebre o trabalho multiplos pedados invocando eles e aguardando o resultado>
+		}
+
+
+------------------------------------------
+
+Stream Parallelism
+	- A Stream api facilita o execução paralela reformulando a execução com um pipeline de operações de agregação.
+	- Um stream pipeline de produzir o mesmo resultado independenetemente se executado sequencialmente ou em paralelo
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
